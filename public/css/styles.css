@@ -1,0 +1,22 @@
+/* public/css/styles.css */
+
+/* Mantiene el footer en la parte inferior */
+html, body {
+    height: 100%;
+}
+
+.content-wrapper {
+    min-height: calc(100vh - 100px);
+}
+
+footer {
+    height: 50px;
+    background: #343a40;
+    color: white;
+    text-align: center;
+    line-height: 50px;
+}
+
+.content-wrapper {
+    margin-bottom: 60px;
+}
