@@ -9,50 +9,68 @@
 </head>
 <body>
     <?= view('layouts/header') ?>
+    <?= view('layouts/alertas') ?>
+    <div class="container">
+    <h2>Ingreso de Movimientos</h2>
 
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">Ingresos de Picos de Bodega</h2>
-        
-        <table class="table table-striped table-bordered">
-            <thead class="table-dark text-center">
-                <tr>
-                    <th>Número de Ingreso</th>
-                    <th>Fecha de Ingreso</th>
-                    <th>Código</th>
-                    <th>Ubicación</th>
-                    <th>Cantidad Ingresada</th>
-                    <th>Observaciones</th>
-                    <th>Responsable</th>
-                </tr>
-            </thead>
-            <tbody>
-                
-                <tr>
-                    <td>001</td>
-                    <td>2024-02-14</td>
-                    <td>PT45865</td>
-                    <td>O1</td>
-                    <td>50</td>
-                    <td>Ingreso de bodega</td>
-                    <td>Hernan Teran</td>
-                </tr>
-                <tr>
-                    <td>002</td>
-                    <td>2024-02-15</td>
-                    <td>PT85560</td>
-                    <td>E25</td>
-                    <td>100</td>
-                    <td>Ingreso de Bodega</td>
-                    <td>Hernan Teran</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <a href="<?= base_url('dashboard') ?>" class="btn btn-secondary">
-            <i class="fas fa-arrow-left"></i> Volver al Dashboard
-        </a>
-    </div>
+    <!-- Tabla con formulario en la primera fila -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Fecha Ingreso</th>
+                <th>Código</th>
+                <th>Ubicación</th>
+                <th>Cantidad</th>
+                <th>Observaciones</th>
+                <th>Responsable</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Fila para agregar un nuevo ingreso -->
+            <tr>
+                <form action="<?= base_url('ingresos/guardar') ?>" method="post">
+                    <?= csrf_field() ?>
+                    <td><input type="date" class="form-control" name="fechaingreso" required></td>
+                    <td><input type="text" class="form-control" name="codigo" placeholder="Código" required></td>
+                    <td>
+                        <select class="form-control" name="ubicacion" required>
+                            <?php foreach($ubicaciones as $ubicacion): ?>
+                                <option value="<?= $ubicacion['IDubicacion'] ?>"><?= $ubicacion['ubicacion'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </td>
+                    <td><input type="number" class="form-control" name="cantidad" required></td>
+                    <td><input type="text" class="form-control" name="observaciones"></td>
+                    <td><input type="text" class="form-control" name="responsable" required></td>
+                    <td><button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button></td>
+                </form>
+            </tr>
 
-    <?= view('layouts/footer') ?>
+            <!-- Filas con ingresos existentes -->
+            <?php foreach($ingresos as $ingreso): ?>
+                <tr>
+                    <td><?= $ingreso['fechaingreso'] ?></td>
+                    <td><?= $ingreso['codigo'] ?></td>
+                    <td><?= $ingreso['ubicacion'] ?></td>
+                    <td><?= $ingreso['cantidad'] ?></td>
+                    <td><?= $ingreso['observaciones'] ?></td>
+                    <td><?= $ingreso['responsable'] ?></td>
+                    <td>
+                        <a href="<?= base_url('ingresos/eliminar/' . $ingreso['IDmovimiento']) ?>" class="btn btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <?= $pager->links('default', 'bootstrap') ?>
+</div>
+
+
 </body>
+
+<?= view('layouts/footer') ?>
 </html>

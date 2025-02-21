@@ -8,7 +8,7 @@ class MovimientosModel extends Model{
 
     protected $table = 'movimientos';
     protected $primaryKey= 'IDmovimiento';
-    protected $allowedFields = ['fechaingreso', 'codigo', 'ubicacion', 'cantidad','observaciones','responsables','tipo'];
+    protected $allowedFields = ['fechaingreso', 'codigo', 'ubicacion', 'cantidad','observaciones','responsable','tipo'];
 
     public function agregarMovimiento ($data){
         return $this->insert($data);
