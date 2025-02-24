@@ -6,48 +6,69 @@
     <title>Ingresos</title>
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <?= view('layouts/header') ?>
 </head>
 <body>
-    <?= view('layouts/header') ?>
-
-    <div class="container mt-5">
+    <?= view('layouts/alertas')?>
+    <div class="container">
         <h2 class="text-center mb-4">Egresos de Picos de Bodega</h2>
+
+        <div class="table-container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Fecha de Ingreso</th>
+                        <th>Código</th>
+                        <th>Ubicación</th>
+                        <th>Cantidad Ingresada</th>
+                        <th>Observaciones</th>
+                        <th>Responsable</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Fila para agregar un nuevo egreso Jcampos -->
+                    <tr>
+                        <form action="<?=base_url('egresos/guardar')?>" method="post">
+                            <?= csrf_field()?>
+
+                            <td> <input type="date" class="form-control" name="fechaingreso" require> </td>
+                            <td> <input type="text" class="form-control" name="codigo" placeholder="Código" require> </td>
+                            <td>
+                                <select class="form-control" name="ubicacion" require>
+                                    <?php foreach($ubicaciones as $ubicacion): ?>
+                                        <option value="<?= $ubicacion['IDubicacion']?>"> <?=$ubicacion['ubicacion']?> </option>
+                                    <?php endforeach;?>
+                                </select>
+                            </td>
+                            <td><input type="number" class="form-control" name="cantidad" required></td>
+                            <td><input type="text" class="form-control" name="observaciones"></td>
+                            <td><input type="text" class="form-control" name="responsable" required></td>
+                            <td><button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button></td>
+                        </form>
+                    </tr>
+
+                    <!-- Filas con ingresos existentes -->
+                    <?php foreach($egresos as $egreso): ?>
+                        <tr>
+                            <td><?= date('Y-m-d', strtotime($egreso['fechaingreso'])) ?></td>
+                            <td><?= $egreso['codigo'] ?></td>
+                            <td><?= $egreso['nombre_ubicacion'] ?></td>
+                            <td><?= $egreso['cantidad'] ?></td>
+                            <td><?= $egreso['observaciones'] ?></td>
+                            <td><?= $egreso['responsable'] ?></td>
+                            <td>
+                                <a href="javascript:void(0);" class="btn btn-danger" onclick="confirmarEliminacion(<?= $egreso['IDmovimiento'] ?>)">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
         
-        <table class="table table-striped table-bordered">
-            <thead class="table-dark text-center">
-                <tr>
-                    <th>Número de Ingreso</th>
-                    <th>Fecha de Ingreso</th>
-                    <th>Código</th>
-                    <th>Ubicación</th>
-                    <th>Cantidad Ingresada</th>
-                    <th>Observaciones</th>
-                    <th>Responsable</th>
-                </tr>
-            </thead>
-            <tbody>
-                
-                <tr>
-                    <td>001</td>
-                    <td>2024-02-14</td>
-                    <td>PT45865</td>
-                    <td>O1</td>
-                    <td>50</td>
-                    <td>Ingreso de bodega</td>
-                    <td>Hernan Teran</td>
-                </tr>
-                <tr>
-                    <td>002</td>
-                    <td>2024-02-15</td>
-                    <td>PT85560</td>
-                    <td>E25</td>
-                    <td>100</td>
-                    <td>Ingreso de Bodega</td>
-                    <td>Hernan Teran</td>
-                </tr>
-            </tbody>
-        </table>
-        
+        <?= $pager->links('default', 'bootstrap') ?>
         <a href="<?= base_url('dashboard') ?>" class="btn btn-secondary">
             <i class="fas fa-arrow-left"></i> Volver al Dashboard
         </a>
@@ -55,4 +76,22 @@
 
     <?= view('layouts/footer') ?>
 </body>
+<script>
+    function confirmarEliminacion(id) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: 'Esta acción no se puede deshacer.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "<?= base_url('egresos/eliminar/') ?>" + id;
+            }
+        });
+    }
+</script>
 </html>

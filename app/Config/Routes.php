@@ -21,3 +21,5 @@ $routes->get('ubicaciones/eliminar/(:num)', 'UbicacionesController::eliminar/$1'
 //rutas para guardar J.Campos
 $routes->post('ingresos/guardar', 'IngresosController::guardar');
 $routes->get('ingresos/eliminar/(:num)', 'IngresosController::eliminar/$1');
+$routes->post('egresos/guardar', 'EgresosController::guardar');
+$routes->get('egresos/eliminar/(:num)', 'EgresosController::eliminar/$1');

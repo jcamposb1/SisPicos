@@ -18,4 +18,18 @@ class MovimientosModel extends Model{
         return $this->delete($id);
     }
 
+    public function getMovimientos($limit = 10, $offset = 0){
+        return $this->select('movimientos.*, ubicacion.ubicacion AS nombre_ubicacion')
+                    ->join('ubicacion', 'ubicacion.IDubicacion= movimientos.ubicacion')
+                    ->paginate($limit, 'default', $offset);
+    }
+
+    public function getEgresos($limit = 10, $offset = 0){
+        return $this->select('movimientos.*, ubicacion.ubicacion AS nombre_ubicacion')
+                    ->join('ubicacion', 'ubicacion.IDubicacion = movimientos.ubicacion')
+                    ->where('tipo', 'egreso') // Filtrar solo los egresos
+                    ->paginate($limit, 'default', $offset);
+    }
+    
+
 }

@@ -1,5 +1,3 @@
-/* public/css/styles.css */
-
 /* Mantiene el footer en la parte inferior */
 html, body {
     height: 100%;
@@ -20,3 +18,25 @@ footer {
 .content-wrapper {
     margin-bottom: 60px;
 }
+
+/* OJO Estilo para hacer que la tabla no sea demasiado grande y tenga desplazamiento Jcampos */
+.table-container {
+    max-height: 400px; /* Ajusta este valor según lo que necesites */
+    overflow-y: auto;
+    margin-bottom: 20px; /* Añado espacio antes de la paginación */ 
+}
+
+/* Con esto el footer no queda tapado */
+.footer-space {
+    margin-top: 20px; /* Añadir un buen espacio entre la tabla y el footer */
+}
+
+.table-container {
+    max-height: 500px;  /* Calibro altura máxima, ajusto segun necesidad jcampos */
+    overflow-y: auto;   /* Para desplazamiento vertical */
+}
+
+body {
+    background-color: #eefaf6;  /* Color de fondo body atras tabla */
+}
+
