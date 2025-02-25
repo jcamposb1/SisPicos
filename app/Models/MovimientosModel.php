@@ -8,7 +8,7 @@ class MovimientosModel extends Model{
 
     protected $table = 'movimientos';
     protected $primaryKey= 'IDmovimiento';
-    protected $allowedFields = ['fechaingreso', 'codigo', 'ubicacion', 'cantidad','observaciones','responsable','tipo'];
+    protected $allowedFields = ['fechaingreso', 'codigo', 'ubicacion', 'cantidad','observaciones','responsable','tipo','estado'];
 
     public function agregarMovimiento ($data){
         return $this->insert($data);
@@ -21,13 +21,15 @@ class MovimientosModel extends Model{
     public function getMovimientos($limit = 10, $offset = 0){
         return $this->select('movimientos.*, ubicacion.ubicacion AS nombre_ubicacion')
                     ->join('ubicacion', 'ubicacion.IDubicacion= movimientos.ubicacion')
+                    ->where('estado', 'activo')
                     ->paginate($limit, 'default', $offset);
     }
 
     public function getEgresos($limit = 10, $offset = 0){
         return $this->select('movimientos.*, ubicacion.ubicacion AS nombre_ubicacion')
                     ->join('ubicacion', 'ubicacion.IDubicacion = movimientos.ubicacion')
-                    ->where('tipo', 'egreso') // Filtrar solo los egresos
+                    ->where('tipo', 'egreso') 
+                    ->where('estado', 'activo')
                     ->paginate($limit, 'default', $offset);
     }
     

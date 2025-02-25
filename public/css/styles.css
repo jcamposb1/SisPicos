@@ -1,3 +1,33 @@
+/* Asegura que el contenido principal tenga el espacio adecuado */
+main {
+    margin-left: 210px;
+    padding-top: 15px; /* Ajusta esto dependiendo del ancho de tu sidebar */
+    transition: margin-left 0.3s;
+}
+
+header {
+    z-index: 98;
+    position: relative;
+}
+.navbar-custom {
+    background-color: #343a40;
+    /* Color oscuro */
+}
+
+.navbar-custom .navbar-brand img {
+    max-height: 45px;
+    /* Tamaño del logo */
+}
+
+.navbar-custom .nav-link {
+    color: rgb(255, 255, 255);
+}
+
+.navbar-custom .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+
 /* Mantiene el footer en la parte inferior */
 html, body {
     height: 100%;
@@ -13,6 +43,13 @@ footer {
     color: white;
     text-align: center;
     line-height: 50px;
+    z-index: 101;
+    position: relative;
+}
+
+/* Con esto el footer no queda tapado */
+.footer-space {
+    margin-top: 20px; /* Añadir un buen espacio entre la tabla y el footer */
 }
 
 .content-wrapper {
@@ -26,17 +63,59 @@ footer {
     margin-bottom: 20px; /* Añado espacio antes de la paginación */ 
 }
 
-/* Con esto el footer no queda tapado */
-.footer-space {
-    margin-top: 20px; /* Añadir un buen espacio entre la tabla y el footer */
-}
-
 .table-container {
     max-height: 500px;  /* Calibro altura máxima, ajusto segun necesidad jcampos */
     overflow-y: auto;   /* Para desplazamiento vertical */
 }
 
 body {
-    background-color: #eefaf6;  /* Color de fondo body atras tabla */
+    background-color: #e7f1ee;  /* Color de fondo body atras tabla */
 }
 
+/* Menú lateral SIEMPRE visible */
+.sidebar {
+    width: 0; /* Menú oculto por defecto */
+    position: fixed;
+    top: 110px;
+    left: 0;
+    height: calc(100vh - 56px);
+    background-color: #e7f1ee;
+    overflow-x: hidden;
+    transition: width 0.3s;
+    white-space: nowrap;
+    z-index: 80;
+    padding: 0px;
+}
+
+/* Cambiar color de las letras en el menú lateral */
+.sidebar a {
+    color: #080808;  /* Cambia a cualquier color que prefieras */
+    text-decoration: #fff; 
+}
+
+.sidebar a:hover {
+    color: #ffcc00;  /* Cambia el color al pasar el mouse */
+}
+
+
+/* Menú visible al pasar el mouse sobre el icono */
+.menu-icon:hover + #sidebarMenu ,
+#sidebarMenu:hover{
+    width: 140px;  /* Ancho del menú cuando se despliega */
+}
+
+/* Opcional: un efecto de transición suave para el icono */
+.menu-icon {
+    position: fixed;
+    top: 80px;
+    left: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 101;
+}
+
+
+/* Restablece el margen de 'main' cuando el menú está visible */
+main {
+    margin-left: 220px;  /* Ajustar el margen cuando el menú esté visible */
+}

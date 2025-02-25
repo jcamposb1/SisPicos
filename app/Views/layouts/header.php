@@ -14,26 +14,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
-    <style>
-        .navbar-custom {
-            background-color: #343a40;
-            /* Color oscuro */
-        }
-
-        .navbar-custom .navbar-brand img {
-            max-height: 45px;
-            /* Tamaño del logo */
-        }
-
-        .navbar-custom .nav-link {
-            color: white;
-        }
-
-        .navbar-custom .dropdown-menu {
-            right: 0;
-            left: auto;
-        }
-    </style>
 </head>
 
 <body>
@@ -61,4 +41,4 @@
     </nav>
 
     <!-- Contenido de la página -->
-    <div class="container mt-5 pt-5">
+    <div class="container mt-4 pt-5">

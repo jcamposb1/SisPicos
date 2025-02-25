@@ -21,6 +21,6 @@ class EgresosController extends MovimientosController{
     }
 
     public function eliminar($id){
-        return $this->eliminarMovimiento('$id', 'egreso');
+        return $this->eliminarMovimiento($id, 'egreso');
     }
 }

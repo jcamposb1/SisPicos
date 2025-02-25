@@ -11,6 +11,7 @@
 
 <body>
     <?= view('layouts/header') ?>
+    
     <div class="container mt-5" style="min-height: calc(100vh - 150px);">
         <h2 class="text-center">Bienvenido al Sistema de Picos</h2>
         <div class="row mt-5 justify-content-center">

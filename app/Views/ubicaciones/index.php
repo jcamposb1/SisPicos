@@ -14,6 +14,7 @@
 
 <body>
     <?= view('layouts/header') ?>
+    <?= view('layouts/leftmenu') ?>
 
     <div class="container mt-5">
         <h2 class="text-center mb-4">Ubicaciones de Bodega</h2>
@@ -70,13 +71,8 @@
         </table>
 
         <!-- En cualquier vista donde necesites paginación -->
-         
+
         <?= $pager->links('default', 'bootstrap') ?>
-
-
-        <a href="<?= base_url('dashboard') ?>" class="btn btn-secondary mt-3">
-            <i class="fas fa-arrow-left"></i> Volver al Dashboard
-        </a>
 
     </div>
     </div>

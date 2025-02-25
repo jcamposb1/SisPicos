@@ -9,15 +9,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="<?= base_url('css/styles.css') ?>">
-
-
 </head>
 
 <body>
     <?= view('layouts/header') ?>
     <?= view('layouts/alertas') ?>
+    <?= view('layouts/leftmenu') ?>
     <div class="container">
-        <h2>Ingreso de Movimientos</h2>
+        <h2 class="text-center mb-4">Ingreso de Movimientos</h2>
 
         <!-- Tabla con formulario en la primera fila -->
         <div class="table-container">
@@ -64,9 +63,14 @@
                             <td><?= $ingreso['observaciones'] ?></td>
                             <td><?= $ingreso['responsable'] ?></td>
                             <td>
-                                <a href="javascript:void(0);" class="btn btn-danger" onclick="confirmarEliminacion(<?= $ingreso['IDmovimiento'] ?>)">
-                                    <i class="fas fa-trash"></i>
-                                </a>
+                                <div class="d-flex">
+                                    <a href="javascript:void(0);" class="btn btn-danger" onclick="confirmarEliminacionIng(<?= $ingreso['IDmovimiento'] ?>)">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                    <a href="javascript:void(0);" class="btn btn-info ms-2" onclick="imprimirIngreso(<?= $ingreso['IDmovimiento'] ?>)">
+                                        <i class="fas fa-print"></i>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -78,28 +82,8 @@
         <?= $pager->links('default', 'bootstrap') ?>
     </div>
 
-
     <?= view('layouts/footer') ?>
 
 </body>
-
-<script>
-    function confirmarEliminacion(id) {
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: 'Esta acción no se puede deshacer.',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = "<?= base_url('ingresos/eliminar/') ?>" + id;
-            }
-        });
-    }
-</script>
 
 </html>

@@ -30,8 +30,8 @@ class MovimientosController extends Controller {
     }
 
     protected function eliminarMovimiento($id, $tipo) {
-        $this->movimientosModel->eliminarMovimiento($id);
-        return redirect()->to(base_url($tipo . 's'))->with('success', ucfirst($tipo) . ' eliminado con éxito.');
+        $this->movimientosModel->update($id,['estado'=>'inactivo']);
+        return redirect()->to(base_url($tipo . 's'))->with('success', ucfirst($tipo) . ' marcado como inactivo éxito.');
     }
 }
 ?>
