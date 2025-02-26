@@ -2,6 +2,7 @@
 namespace App\Controllers;
 use CodeIgniter\Controller;
 use App\Models\MovimientosModel;
+use Picqer\Barcode\BarcodeGeneratorPNG;
 
 class MovimientosController extends Controller {
     protected $movimientosModel;
@@ -33,5 +34,27 @@ class MovimientosController extends Controller {
         $this->movimientosModel->update($id,['estado'=>'inactivo']);
         return redirect()->to(base_url($tipo . 's'))->with('success', ucfirst($tipo) . ' marcado como inactivo éxito.');
     }
+
+    public function imprimir($id) {
+        $movimiento = $this->movimientosModel->getMovimientoById($id);
+    
+        if (!$movimiento) {
+            return redirect()->to(base_url('/'))->with('error', 'Movimiento no encontrado.');
+        }
+    
+        $generator = new BarcodeGeneratorPNG();
+        $codigoBarras = base64_encode($generator->getBarcode($movimiento['codigo'], $generator::TYPE_CODE_128));
+    
+        $data = [
+            'movimiento' => $movimiento,
+            'codigoBarras' => $codigoBarras
+        ];
+    
+        return view('movimientos/imprimir', $data);
+    }
+    
+
+
+    
 }
 ?>

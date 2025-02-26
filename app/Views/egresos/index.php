@@ -68,7 +68,7 @@
                                     <a href="javascript:void(0);" class="btn btn-danger" onclick="confirmarEliminacionIng(<?= $egreso['IDmovimiento'] ?>)">
                                         <i class="fas fa-trash"></i>
                                     </a>
-                                    <a href="javascript:void(0);" class="btn btn-info ms-2" onclick="imprimirIngreso(<?= $egreso['IDmovimiento'] ?>)">
+                                    <a href="<?= base_url('movimientos/imprimir/' . $egreso['IDmovimiento']) ?>" class="btn btn-info ms-2" target="_blank">
                                         <i class="fas fa-print"></i>
                                     </a>
                                 </div>

@@ -32,6 +32,15 @@ class MovimientosModel extends Model{
                     ->where('estado', 'activo')
                     ->paginate($limit, 'default', $offset);
     }
+
+    //ojo uso movbimientos por ID para impresion 
+    public function getMovimientoById($id) {
+        return $this->select('movimientos.*, ubicacion.ubicacion AS nombre_ubicacion')
+                    ->join('ubicacion', 'ubicacion.IDubicacion = movimientos.ubicacion')
+                    ->where('movimientos.IDmovimiento', $id)
+                    ->first();
+    }
+    
     
 
 }

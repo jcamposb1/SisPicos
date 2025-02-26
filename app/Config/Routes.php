@@ -23,3 +23,5 @@ $routes->post('ingresos/guardar', 'IngresosController::guardar');
 $routes->get('ingresos/eliminar/(:num)', 'IngresosController::eliminar/$1');
 $routes->post('egresos/guardar', 'EgresosController::guardar');
 $routes->get('egresos/eliminar/(:num)', 'EgresosController::eliminar/$1');
+//Rutas para imprimir J.Campos
+$routes->get('movimientos/imprimir/(:num)','MovimientosController::imprimir/$1');
